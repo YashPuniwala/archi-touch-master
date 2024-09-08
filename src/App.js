@@ -1,0 +1,83 @@
+import Home from "./pages/home";
+import Navbar from "./components/home/navbar";
+import NavbarWithBackground from "./pages/navbarWithBackground";
+import AboutUs from "./pages/aboutUs";
+import Footer from "./components/footer"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import "./App.css";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  
+  return null;
+}
+
+function AnimatedRoutes() {
+  const location = useLocation();
+  const [isFirstMount, setIsFirstMount] = useState(true);
+
+  useEffect(() => {
+    setIsFirstMount(false);
+  }, []);
+
+    const [isLoading, setIsLoading] = useState(true)
+
+  useEffect( () => {
+    (
+      async () => {
+          const LocomotiveScroll = (await import('locomotive-scroll')).default
+          const locomotiveScroll = new LocomotiveScroll();
+
+          setTimeout( () => {
+            setIsLoading(false);
+            document.body.style.cursor = 'default'
+            window.scrollTo(0,0);
+          }, 2000)
+      }
+    )()
+  }, [])
+  
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ x: -60, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: 0, opacity: 0 }}
+        transition={{ ease: "easeInOut", duration: 0.3 }}
+        className="route-container"
+      >
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/aboutUs" element={<AboutUs />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <div className="app-container">
+        <Navbar />
+        <AnimatedRoutes />
+        {/* <Footer /> */}
+      </div>
+    </Router>
+  );
+}
+
+export default App;
