@@ -119,6 +119,11 @@ function FollowUs() {
         </div>
       </div>
 
+      {/* <motion.div style={{ height }} className="circleContainer">
+      <div className="circle"></div>
+    </motion.div>
+    <Footer /> */}
+
       {/* Consultation Section */}
       <div className="relative w-[89%] mx-auto bg-gray-50 py-10 px-4 rounded-lg border border-gray-300 -mt-16 z-10 sm:-mt-24 lg:-mt-16">
         <div className="bg-gray-50 p-0 md:p-5">

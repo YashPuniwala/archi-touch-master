@@ -10,7 +10,7 @@ const projects = [
     type: "Residential",
     project: "Smith Family",
     year: "2020",
-    src: "https://images.unsplash.com/photo-1633109611134-c41b5c0bbc1a?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: "https://www.lakdi.com/cdn/shop/articles/Low-Cost-Interior-Design-Ideas.jpg?v=1717847382",
     color: "#FF0000",
   },
   {
@@ -19,7 +19,7 @@ const projects = [
     type: "Commercial",
     project: "Tech Corp",
     year: "2021",
-    src: "https://images.unsplash.com/photo-1632583824020-937ae9564495?q=80&w=1558&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: "https://static.vecteezy.com/system/resources/previews/029/093/870/non_2x/the-best-modern-living-room-furniture-pieces-for-small-spaces-3d-rendering-photo.jpg",
     color: "#00FF00",
   },
   {
@@ -28,7 +28,7 @@ const projects = [
     type: "Residential",
     project: "Johnson Family",
     year: "2022",
-    src: "https://images.unsplash.com/photo-1507149833265-60c372daea22?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: "https://5.imimg.com/data5/ANDROID/Default/2021/5/FX/XJ/DA/124990434/fb-img-1618678195713-jpg-250x250.jpg",
     color: "#0000FF",
   },
   {
@@ -37,7 +37,7 @@ const projects = [
     type: "Hospitality",
     project: "Boutique Hotel",
     year: "2023",
-    src: "https://images.unsplash.com/photo-1649361811423-a55616f7ab11?q=80&w=1516&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: "https://5.imimg.com/data5/ANDROID/Default/2021/5/FX/XJ/DA/124990434/fb-img-1618678195713-jpg-250x250.jpg",
     color: "#FFFF00",
   },
 ];

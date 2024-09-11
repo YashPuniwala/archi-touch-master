@@ -14,6 +14,7 @@ import FollowUs from "../components/home/followUs"
 import Awards from "../components/home/awards"
 import ThreeImages from "../components/home/threeImages";
 import NavbarPage from "../components/home/navbar";
+import StickyFooter from "../components/stickyFooter";
 
 const Home = () => {
   // const [isLoading, setIsLoading] = useState(true)
@@ -70,6 +71,9 @@ const Home = () => {
       </section>
       {/* <section className="mt-[10rem]">
         <ThreeImages />
+      </section> */}
+      {/* <section>
+        <StickyFooter />
       </section> */}
     </div>
   );

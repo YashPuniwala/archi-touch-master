@@ -6,7 +6,7 @@
 
 .sticky {
   position: sticky;
-  top: 90px; /* Adjust this value to set how far from the top the title should stick */
+  top: 85px; /* Adjust this value to set how far from the top the title should stick */
   align-self: flex-start;
 }
 

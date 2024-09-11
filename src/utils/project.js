@@ -3,7 +3,7 @@ import React from "react";
 const Project = ({ id, title, type, project, year, manageModal, index }) => {
   return (
     <tr
-      className="border-b border-black group md:table-row flex flex-col md:flex-row"
+      className="border-b border-black group md:table-row flex flex-col md:flex-row cursor-pointer"
       onMouseEnter={(e) => manageModal(true, index, e.clientX, e.clientY)}
       onMouseLeave={(e) => manageModal(false, index, e.clientX, e.clientY)}
     >
