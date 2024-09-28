@@ -34,6 +34,7 @@ const Home = () => {
   //   )()
   // }, [])
   return (
+    <>
     <div>
       {/* <Navbar /> */}
       <section className="flex items-center justify-center h-screen bg-gray-100">
@@ -72,10 +73,11 @@ const Home = () => {
       {/* <section className="mt-[10rem]">
         <ThreeImages />
       </section> */}
-      {/* <section>
+      <section>
         <StickyFooter />
-      </section> */}
+      </section>
     </div>
+    </>
   );
 };
 

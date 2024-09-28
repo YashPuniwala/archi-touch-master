@@ -6,6 +6,7 @@ import AutomaticTextSlider from "../components/aboutUs/automaticTextSlider";
 import Carousel from "../components/aboutUs/carousel"
 import FollowUs from "../components/home/followUs"
 import AboutUsOurTeamSection from "../components/aboutUs/aboutUsOurTeamSection"
+import StickyFooter from "../components/stickyFooter"
 
 const AboutUs = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,6 +42,9 @@ const AboutUs = () => {
       </section>
       <section>
         <FollowUs />
+      </section>
+      <section>
+        <StickyFooter />
       </section>
     </div>
   );

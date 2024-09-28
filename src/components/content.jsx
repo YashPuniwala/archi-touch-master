@@ -1,4 +1,4 @@
-import Magnetic from '../utils/magnetic'
+import Magnetic from '../utils/magnetic';
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 
@@ -106,49 +106,7 @@ const Content = () => {
   }, []);
 
   return (
-    <footer className="min-h-[100vh] bg-black text-white sm:px-4 flex flex-col justify-between items-center">
-      {/* Flex container for X icon and Social Media Links */}
-      <div className="w-full flex justify-between items-center mt-4 flex-col sm:flex-row">
-        {/* Top Left Icon */}
-        <div className="flex justify-center items-center mb-4 sm:mb-0">
-          <span className="text-white text-xl sm:text-2xl">✖</span>
-        </div>
-
-        {/* Top Right Social Media Links */}
-        <div className="flex justify-center items-center space-x-2 text-xs text-gray-400 text-center sm:text-right">
-          <Magnetic>
-            <div>
-              <a
-                href="#"
-                className="border border-white rounded-full px-2 py-1 sm:px-4 sm:py-2 text-base sm:text-lg md:text-xl inline-block hover:bg-white hover:text-black transition"
-              >
-                INSTAGRAM
-              </a>
-            </div>
-          </Magnetic>
-          <Magnetic>
-            <div>
-              <a
-                href="#"
-                className="border border-white rounded-full px-2 py-1 sm:px-4 sm:py-2 text-base sm:text-lg md:text-xl inline-block hover:bg-white hover:text-black transition"
-              >
-                FACEBOOK
-              </a>
-            </div>
-          </Magnetic>
-          <Magnetic>
-            <div>
-              <a
-                href="#"
-                className="border border-white rounded-full px-2 py-1 sm:px-4 sm:py-2 text-base sm:text-lg md:text-xl inline-block hover:bg-white hover:text-black transition"
-              >
-                TWITTER
-              </a>
-            </div>
-          </Magnetic>
-        </div>
-      </div>
-
+    <footer className="min-h-[100%] sm:min-h-[100%] bg-black text-white pb-4 sm:pb-0 sm:px-4 flex flex-col justify-between items-center">
       {/* Center Content */}
       <div className="flex-grow flex flex-col items-center justify-center text-center">
         <div
@@ -216,7 +174,7 @@ const Content = () => {
       </div>
 
       {/* Bottom Flex Container for X Icon and Disclaimer */}
-      <div className="w-full flex justify-between items-center mt-8 sm:mt-8 mb-4 sm:mb-4 flex-col sm:flex-row">
+      <div className="w-full flex justify-between items-center mt-2 sm:mt-8 mb-4 sm:mb-4 flex-col sm:flex-row">
         {/* Footer Bottom Text */}
         <div className="text-base text-gray-400 text-center sm:text-right mb-4 sm:mb-0">
           <p>&copy; Archi-Touch. All Rights Reserved. Licensing</p>
@@ -224,11 +182,37 @@ const Content = () => {
 
         {/* Bottom Left Icon */}
         <div className="flex justify-center items-center">
-          <span className="text-white text-xl sm:text-2xl">✖</span>
+          {/* <span className="text-white text-xl sm:text-2xl">✖</span> */}
+          <div className="flex  items-center space-y-0 sm:space-y-0 sm:flex-row space-x-4 sm:space-x-4">
+  <Magnetic>
+    <a
+      href="#"
+      className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
+    >
+      INSTAGRAM
+    </a>
+  </Magnetic>
+  <Magnetic>
+    <a
+      href="#"
+      className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
+    >
+      FACEBOOK
+    </a>
+  </Magnetic>
+  <Magnetic>
+    <a
+      href="#"
+      className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
+    >
+      TWITTER
+    </a>
+  </Magnetic>
+</div>
         </div>
       </div>
     </footer>
   );
 };
 
-export default Content;
+export default Content; 

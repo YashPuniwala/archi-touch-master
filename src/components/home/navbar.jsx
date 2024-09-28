@@ -61,6 +61,8 @@ const NavbarPage = () => {
     visible: { opacity: 1, x: 0 },
   };
 
+  const isDetailPage = location.pathname.startsWith("/project/detail/");
+
   return (
     <div>
       <div
@@ -113,7 +115,10 @@ const NavbarPage = () => {
         </div>
       </div>
 
-      {location.pathname === "/aboutUs" ? (
+      {location.pathname === "/aboutUs" ||
+      location.pathname === "/projects" ||
+      location.pathname === "" ||
+      isDetailPage ? ( // Add isDetailPage condition here
         <div>
           <AnimatePresence>
             <motion.div
@@ -166,7 +171,6 @@ const NavbarPage = () => {
                     </svg>
                   </button>
                 </div>
-
                 <div className="hidden lg:flex">
                   <h2 className="text-xl font-semibold">Menu</h2>
                 </div>
@@ -228,7 +232,6 @@ const NavbarPage = () => {
                       </svg>
                     </button>
                   </div>
-
                   <div className="hidden lg:flex">
                     <h2 className="text-xl font-semibold">Menu</h2>
                   </div>

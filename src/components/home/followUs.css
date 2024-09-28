@@ -100,7 +100,7 @@
   
   .circle {
     position: absolute;
-    height: 1550%; /* Adjust the height for the desired curve */
+    height: 150%; /* Adjust the height for the desired curve */
     width: 100%; /* Slightly wider than the container */
     border-radius: 0 0 50% 50%; /* Apply the curve */
     background-color: white;

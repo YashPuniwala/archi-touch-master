@@ -2,6 +2,8 @@ import Home from "./pages/home";
 import Navbar from "./components/home/navbar";
 import NavbarWithBackground from "./pages/navbarWithBackground";
 import AboutUs from "./pages/aboutUs";
+import Projects from "./pages/projects"
+import SingleProjectDetail from "./pages/singleProjectDetail"
 import Footer from "./components/footer"
 import {
   BrowserRouter as Router,
@@ -51,16 +53,18 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={location.pathname}
-        initial={{ x: -60, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: 0, opacity: 0 }}
-        transition={{ ease: "easeInOut", duration: 0.3 }}
+        // key={location.pathname}
+        // initial={{ x: -60, opacity: 0 }}
+        // animate={{ x: 0, opacity: 1 }}
+        // exit={{ x: 0, opacity: 0 }}
+        // transition={{ ease: "easeInOut", duration: 0.3 }}
         className="route-container"
       >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/project/detail/:id" element={<SingleProjectDetail />} />
         </Routes>
       </motion.div>
     </AnimatePresence>

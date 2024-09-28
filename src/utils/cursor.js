@@ -50,7 +50,7 @@ const Cursor = ({ isVisible }) => {
         opacity: isVisible ? 1 : 0,
         scale: isVisible ? 1 : 0,
       }}
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      transition={{ duration: 0.8, ease: 'easeInOut' }}
       // className="custom-cursor"
     >
       <div className="custom-cursor-circle">

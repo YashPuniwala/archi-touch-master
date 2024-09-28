@@ -27,7 +27,8 @@ module.exports = {
         "custom-whyChooseUsText-md": "470px",
         "custom-footer-text-2": "360px",
         "custom-footer-text": "320px",
-        "custom-aboutUsOurTeamSection-md": "900px"
+        "custom-aboutUsOurTeamSection-md": "900px",
+        "custom-singleProjectDetail-rightImage": "1300px"
       },
     },
   },

@@ -13,15 +13,15 @@ const AutomaticTextSlider = () => {
         <span className="hover-text" >
           Master Bedroom
         </span>
-        <span className="mx-4 plus-sign">+</span>
+        <h2 className="mx-4 plus-signs">+</h2>
         <span className="hover-text" >
           Living Room
         </span>
-        <span className="mx-4 plus-sign">+</span>
+        <h2 className="mx-4 plus-signs">+</h2>
         <span className="hover-text" >
           Kitchen
         </span>
-        <span className="mx-4 plus-sign">+</span>
+        <h2 className="mx-4 plus-signs">+</h2>
       </Marquee>
     </div>
   );
