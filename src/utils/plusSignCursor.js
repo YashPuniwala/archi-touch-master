@@ -17,19 +17,31 @@ const PlusSignCursor = () => {
 
     // Use requestAnimationFrame for smoother updates
     requestAnimationFrame(() => {
-      setDelayedMouse({
-        x: clientX - cursorSize / 2,
-        y: clientY - cursorSize / 2
-      });
+      setDelayedMouse((prev) => ({
+        x: prev.x + (clientX - cursorSize / 2 - prev.x) * 0.1, // Smooth trailing
+        y: prev.y + (clientY - cursorSize / 2 - prev.y) * 0.1,
+      }));
     });
   };
 
   useEffect(() => {
+    // Capture the mouse position on component mount to prevent starting from the top
+    const initialMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      setDelayedMouse({
+        x: clientX - cursorSize / 2,
+        y: clientY - cursorSize / 2,
+      });
+    };
+
+    // Set initial cursor position and add the event listener
+    window.addEventListener("mousemove", initialMouseMove);
     window.addEventListener("mousemove", manageMouseMove);
 
-    // Clean up the event listener on component unmount
+    // Clean up the event listeners on component unmount
     return () => {
       window.removeEventListener("mousemove", manageMouseMove);
+      window.removeEventListener("mousemove", initialMouseMove);
     };
   }, []);
 
@@ -44,7 +56,7 @@ const PlusSignCursor = () => {
       className="cursor"
       style={{
         left: mouseX,
-        top: mouseY
+        top: mouseY,
       }}
     >
       <span className="plus-sign text-4xl">+</span>

@@ -11,6 +11,7 @@
   pointer-events: none; /* Ignore pointer events */
   background-color: transparent; /* No background color */
   transition: transform 0.1s ease, opacity 0.1s ease; /* Smooth movement */
+  transform: translate(-50%, -50%); /* Center cursor */
 }
 
 .plus-sign {
@@ -22,4 +23,13 @@
   top: -2px; /* Reset top positioning */
   left: 0; /* Reset left positioning */
   text-align: center; /* Center the text */
+}
+
+.cursor-hover {
+  scale: 1.5;
+}
+
+button:hover ~ .cursor,
+a:hover ~ .cursor {
+  scale: 1.5;
 }

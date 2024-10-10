@@ -32,14 +32,14 @@ const ScandiSerenity = () => {
         className="relative w-full mx-auto h-[70vh] sm:[150vh] md:h-[75vh] lg:h-[85vh] bg-cover bg-bottom"
         style={{
           backgroundImage:
-            "url('https://cdn.prod.website-files.com/66680ca683883f060b42340f/666b020f220fe752de0a1c74_Banner-22.jpg')",
+            `url(${project?.mainHeaderImage})`,
         }}
       >
         <div className="absolute inset-0 bg-black opacity-30"></div>
       </div>
 
       {/* Consultation Section */}
-      <div className="relative w-[95%] lg:w-[90%] mx-auto bg-white py-10 px-8 rounded-lg border border-gray-300 -mt-32 z-10 sm:-mt-40 lg:-mt-40 custom-singleProjectDetail-rightImage:w-[85%]">
+      <div className="relative w-[95%] lg:w-[90%] mx-auto bg-white py-10 px-4 sm:px-8 rounded-lg border border-gray-300 -mt-32 z-10 sm:-mt-40 lg:-mt-40 custom-singleProjectDetail-rightImage:w-[85%]">
         <div className="px-0 py-0 md:px-6 md:py-2">
           <div className="flex flex-col lg:flex-row gap-10">
             {/* Left content */}
@@ -64,7 +64,7 @@ const ScandiSerenity = () => {
                   transition={{ duration: 0.5 }}
                   viewport={{ once: true }}
                 >
-                  SCANDI SERENITY
+                  {project?.title}
                 </motion.h1>
                 <motion.p
                   className="text-gray-600 mb-8"
@@ -73,15 +73,12 @@ const ScandiSerenity = () => {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   viewport={{ once: true }}
                 >
-                  At Decor, we believe in transforming spaces into breathtaking
-                  environments that inspire and elevate your everyday life. Our
-                  projects are a testament to our commitment to excellence,
-                  creativity, and attention to detail. Explore our portfolio!
+                  {project?.description}
                 </motion.p>
               </div>
 
               {/* Bottom: Share Section */}
-              <div className="flex justify-between items-center mt-12">
+              <div className="flex justify-between items-center mt-4 sm:mt-12">
                 <span className="font-semibold text-base">SHARE ON:</span>
                 <div className="flex space-x-4">
                   <motion.button
@@ -162,8 +159,8 @@ const ScandiSerenity = () => {
         </div>
       </div>
 
-      <div className="mt-10">
-        <LeftSideStick />
+      <div className="mt-5 md:mt-10">
+        <LeftSideStick project={project}/>
       </div>
     </div>
   );
