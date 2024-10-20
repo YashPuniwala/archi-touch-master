@@ -1,45 +1,62 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { Facebook, Twitter } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { singleProjectsData } from "../data/singleProjectsData";
 import LeftSideStick from "../components/projectDetail/leftSideStick";
 
-const ScandiSerenity = () => {
+const SingleProjectDetail = () => {
   const { id } = useParams(); // Get project ID from the URL
   const [project, setProject] = useState(null);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredTitle, setIsHoveredTitle] = useState(false);
   const [randomProject, setRandomProject] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null); // Track the selected image for lightbox
+  const [selectedIndex, setSelectedIndex] = useState(null); // Track the index of the selected image
+
+  const closeLightbox = () => setSelectedIndex(null); // Function to close the lightbox
 
   useEffect(() => {
     // Simulate API call by finding the project based on ID
     const foundProject = singleProjectsData.find((p) => p.id === parseInt(id));
     setProject(foundProject);
-    
+
     // Get a random project that is not the current one
-    const availableProjects = singleProjectsData.filter(p => p.id !== foundProject.id);
+    const availableProjects = singleProjectsData.filter(
+      (p) => p.id !== foundProject.id
+    );
     const randomIndex = Math.floor(Math.random() * availableProjects.length);
     setRandomProject(availableProjects[randomIndex]);
   }, [id]);
 
-  console.log(project?.title, "singleProjectsData.id");
+  const showNextImage = () => {
+    setSelectedIndex((prevIndex) =>
+      prevIndex === project?.galleryImages.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const showPreviousImage = () => {
+    setSelectedIndex((prevIndex) =>
+      prevIndex === 0 ? project?.galleryImages.length - 1 : prevIndex - 1
+    );
+  };
+
+
 
   return (
     <div className="relative mb-[3rem]">
       <div
-        className="relative w-full mx-auto h-[70vh] sm:[150vh] md:h-[75vh] lg:h-[85vh] bg-cover bg-bottom"
+        className="relative w-full mx-auto h-[50vh] sm:[150vh] md:h-[60vh] lg:h-[85vh] bg-cover bg-bottom"
         style={{
-          backgroundImage:
-            `url(${project?.mainHeaderImage})`,
+          backgroundImage: `url(${project?.mainHeaderImage})`,
         }}
       >
         <div className="absolute inset-0 bg-black opacity-30"></div>
       </div>
 
       {/* Consultation Section */}
-      <div className="relative w-[95%] lg:w-[90%] mx-auto bg-white py-10 px-4 sm:px-8 rounded-lg border border-gray-300 -mt-32 z-10 sm:-mt-40 lg:-mt-40 custom-singleProjectDetail-rightImage:w-[85%]">
+      <div className="relative w-[95%] lg:w-[90%] mx-auto bg-white py-10 px-4 sm:px-2 rounded-lg border border-gray-300 -mt-32 z-10 sm:-mt-40 lg:-mt-40 custom-singleProjectDetail-rightImage:w-[85%]">
         <div className="px-0 py-0 md:px-6 md:py-2">
           <div className="flex flex-col lg:flex-row gap-10">
             {/* Left content */}
@@ -50,15 +67,16 @@ const ScandiSerenity = () => {
                   <span className="text-base font-semibold text-gray-500">
                     ARCHI TOUCH
                   </span>
-                  <span className="mx-6 text-gray-300">—</span>
+                  <span className="mx-6 text-gray-300">———</span>
                   <span className="text-base text-gray-500">
-                    APRIL 15, 2022
+                    {/* APRIL 15, 2022 */}
+                    {project?.date}
                   </span>
                 </div>
 
                 {/* Title and content */}
                 <motion.h1
-                  className="text-4xl sm:text-5xl font-bold mb-6"
+                  className="text-[2rem] sm:text-5xl font-bold mb-6"
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -136,7 +154,8 @@ const ScandiSerenity = () => {
                             : "translateY(0)",
                         }}
                       >
-                        {randomProject?.title} {/* Display random project title */}
+                        {randomProject?.title}{" "}
+                        {/* Display random project title */}
                       </h2>
 
                       {/* Title - Second instance */}
@@ -148,7 +167,8 @@ const ScandiSerenity = () => {
                             : "translateY(140%)",
                         }}
                       >
-                        {randomProject?.title} {/* Display random project title */}
+                        {randomProject?.title}{" "}
+                        {/* Display random project title */}
                       </h2>
                     </div>
                   </div>
@@ -160,10 +180,135 @@ const ScandiSerenity = () => {
       </div>
 
       <div className="mt-5 md:mt-10">
-        <LeftSideStick project={project}/>
+        <LeftSideStick project={project} />
+      </div>
+
+      <div className="mt-5 sm:mt-16 px-4">
+        <h2 className="text-3xl font-bold mb-10 text-center">Our Gallery</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {project?.galleryImages.map((image, index) => (
+            <AnimatedImage
+              key={index}
+              src={image.src}
+              animationType={image.animationType}
+              direction={image.direction}
+              onClick={() => setSelectedIndex(index)} // Open lightbox with the clicked image
+              />
+          ))}
+        </div>
+
+        {selectedIndex !== null && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center">
+          {/* Close Button */}
+          <button
+            className="absolute top-4 right-4 text-white text-3xl font-bold"
+            onClick={closeLightbox}
+            aria-label="Close"
+          >
+            &times;
+          </button>
+
+          {/* Previous Button */}
+          <button
+            className="absolute left-4 text-white text-2xl font-bold bg-black bg-opacity-50 px-4 py-2 rounded-full"
+            onClick={showPreviousImage}
+          >
+            &#10094;
+          </button>
+
+          <div className="relative max-w-4xl w-full max-h-screen p-4">
+            <div className="overflow-auto h-full">
+              <img
+                src={project?.galleryImages[selectedIndex].src}
+                alt={`Image ${selectedIndex + 1}`}
+                className="w-full h-auto object-contain cursor-zoom-in"
+              />
+            </div>
+          </div>
+
+          {/* Next Button */}
+          <button
+            className="absolute right-4 text-white text-2xl font-bold bg-black bg-opacity-50 px-4 py-2 rounded-full"
+            onClick={showNextImage}
+          >
+            &#10095;
+          </button>
+        </div>
+      )}
       </div>
     </div>
   );
 };
 
-export default ScandiSerenity;
+const AnimatedImage = ({
+  src,
+  animationType,
+  direction = "topToBottom",
+  onClick,
+}) => {
+  const ref = React.useRef(null);
+  const controls = useAnimation();
+  const isInView = useInView(ref, { threshold: 0.3, triggerOnce: true });
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+
+  const getVariants = () => {
+    if (animationType === "height") {
+      return {
+        hidden: {
+          clipPath:
+            direction === "bottomToTop"
+              ? "inset(100% 0 0 0)"
+              : "inset(0 0 100% 0)",
+        },
+        visible: {
+          clipPath: "inset(0 0 0 0)",
+          transition: { duration: 1, ease: "easeInOut" },
+        },
+      };
+    } else if (animationType === "leftToRight") {
+      return {
+        hidden: { clipPath: "inset(0 100% 0 0)" },
+        visible: {
+          clipPath: "inset(0 0 0 0)",
+          transition: { duration: 1, ease: "easeInOut" },
+        },
+      };
+    } else if (animationType === "rightToLeft") {
+      return {
+        hidden: { clipPath: "inset(0 0 0 100%)" },
+        visible: {
+          clipPath: "inset(0 0 0 0)",
+          transition: { duration: 1, ease: "easeInOut" },
+        },
+      };
+    }
+  };
+
+  return (
+    <div
+      ref={ref}
+      className="overflow-hidden w-full rounded-lg shadow-lg cursor-pointer"
+      onClick={() => onClick(src)}
+    >
+      <motion.div
+        animate={controls}
+        initial="hidden"
+        variants={getVariants()}
+        className="h-full"
+      >
+        <img
+          src={src}
+          alt="Gallery"
+          className="w-full object-cover h-[300px] md:h-[400px] lg:h-[360px] xl:h-[450px]"
+        />
+      </motion.div>
+    </div>
+  );
+};
+
+export default SingleProjectDetail;

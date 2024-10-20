@@ -68,7 +68,8 @@ function FollowUs() {
       <div ref={container} className="relative mb-[3rem]">
         {/* Header Section with Running Text */}
         <div
-          className="relative w-[95%] mx-auto h-[100vh] sm:[150vh] md:h-[130vh] bg-cover bg-center rounded-lg"
+         className="relative w-[95%] mx-auto bg-cover bg-center rounded-lg 
+           h-[64vh] sm:h-[60vh] md:h-[90vh] lg:h-[100vh]"
           style={{
             backgroundImage:
               "url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
@@ -103,7 +104,7 @@ function FollowUs() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="mt-10 text-base max-w-[18rem] sm:max-w-lg"
+              className="mt-2 sm:mt-10 text-base max-w-[18rem] sm:max-w-lg"
             >
               Our expert designers provide personalized guidance to help bring
               your vision to life. We offer tailored design strategies,
@@ -198,51 +199,56 @@ function FollowUs() {
             </div>
 
             {/* Follow Us Section */}
-            <div className="mt-8 md:mt-20">
-              <motion.h2
-                className="text-lg sm:text-lg font-semibold mb-4 heading-line"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
+            <div className="mt-8 md:mt-20 mb-8 md:mb-20 px-4 sm:px-8">
+          <motion.h2
+            className="text-lg sm:text-lg font-semibold mb-4 heading-line"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            Follow us on Instagram
+          </motion.h2>
+
+          <div className="flex flex-wrap -mx-2">
+            {images.map((src, index) => (
+              <div
+                key={index}
+                className="w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 px-2 mb-4"
               >
-                Follow us on instagram
-              </motion.h2>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
-                {images.map((src, index) => (
+                <motion.div
+                  className="relative group cursor-pointer"
+                  whileHover={{ scale: 1.05, rotate: 3 }}
+                  transition={{ duration: 0.7 }}
+                >
+                  <motion.img
+                    ref={handleRef}
+                    src={src}
+                    alt={`Interior ${index + 1}`}
+                    className="w-full h-[150px] sm:h-[200px] object-cover rounded transition-transform duration-700 ease-in-out"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.7, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  />
+                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-700 ease-in-out rounded"></div>
                   <motion.div
-                    className="relative group cursor-pointer"
-                    key={index}
-                    whileHover={{ scale: 1.05, rotate: 3 }}
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileHover={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7 }}
                   >
-                    <motion.img
-                      ref={handleRef}
-                      src={src}
-                      alt={`Interior ${index + 1}`}
-                      className="w-full h-44 object-cover rounded transition-transform duration-300 ease-in-out"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ duration: 0.7, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                    />
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out rounded"></div>
-                    <motion.div
-                      className="absolute inset-0 flex items-center justify-center"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.7 }}
-                    >
-                       <MagneticForInstagram>
+                    <MagneticForInstagram>
                       <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white bg-opacity-20  border border-white">
                         <FaInstagram size={20} color="white" />
                       </div>
                     </MagneticForInstagram>
-                    </motion.div>
                   </motion.div>
-                ))}
+                </motion.div>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
           </div>
         </div>
       </div>

@@ -3,24 +3,30 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
-import "./carousel.css"
+import "./carousel.css";
 
 const images = [
   {
-    default: "https://imgs.search.brave.com/RWiXQbvJ4Qp_yVi5Avc6ADww_1gNOO3Yr-k7uDgTuzo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbnRlcmlvci1k/ZXNpZ24tY296eS1s/aXZpbmctcm9vbS13/aXRoLXN0eWxpc2gt/YWktZ2VuZXJhdGl2/ZV8yMTA4NS0yNDc0/My5qcGc_c2l6ZT02/MjYmZXh0PWpwZw",
-    hover: "https://imgs.search.brave.com/OOMJsKZVrXWnzq1rLQreKmGT3NdH978BoLhwBtXkmLs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM4/Njk1MTkzMy9waG90/by8zZC1yZW5kZXJp/bmctb24tbHV4dXJp/b3VzLWFwYXJ0bWVu/dC1pbnRlcmlvci5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/MnFHSDRVOVRMLW1D/dExRLWVOTFdNWmJq/ejJ1NGh6YXpESWR1/NUdBdFFaUT0",
+    default:
+      "https://cdn.prod.website-files.com/66680ca683883f060b42340f/666b020f220fe752de0a1c74_Banner-22.jpg",
+    hover:
+      "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "The Art of Simplifying Interior",
     subtitle: "Decor Inspiration",
   },
   {
-    default: "https://imgs.search.brave.com/8_5GVwhWnqMzEDy51KhkYeRiIedqrtD7aJRAqcuu8-w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTE2/MTE3NzAxNS9waG90/by9tb2Rlcm4tbGl2/aW5nLXJvb20taW4t/bmF0dXJhbC1ib3Rh/bmljYWwtc3R5bGUu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PWg1b05DZEVTX1I2/OFpiSWZBOGV6NlBE/WklCekpKUFR1bGdY/R0Y2V0pFSUU9",
-    hover: "https://imgs.search.brave.com/aPkrRlab45EI3c-s8hyGxECBnxqxbs4AXOHaTBL463s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9p/bnRlcmlvci1kZXNp/Z24td2l0aC1waG90/b2ZyYW1lcy1jb3Vj/aF8yMy0yMTQ5Mzg1/NDM1LmpwZz9zaXpl/PTYyNiZleHQ9anBn",
+    default:
+      "https://imgs.search.brave.com/8_5GVwhWnqMzEDy51KhkYeRiIedqrtD7aJRAqcuu8-w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTE2/MTE3NzAxNS9waG90/by9tb2Rlcm4tbGl2/aW5nLXJvb20taW4t/bmF0dXJhbC1ib3Rh/bmljYWwtc3R5bGUu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PWg1b05DZEVTX1I2/OFpiSWZBOGV6NlBE/WklCekpKUFR1bGdY/R0Y2V0pFSUU9",
+    hover:
+      "https://imgs.search.brave.com/aPkrRlab45EI3c-s8hyGxECBnxqxbs4AXOHaTBL463s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9p/bnRlcmlvci1kZXNp/Z24td2l0aC1waG90/b2ZyYW1lcy1jb3Vj/aF8yMy0yMTQ5Mzg1/NDM1LmpwZz9zaXpl/PTYyNiZleHQ9anBn",
     title: "The Art of Simplifying Interior And Another Interior Design",
     subtitle: "Decor",
   },
   {
-    default: "https://imgs.search.brave.com/_rydaByWNpGD9nOTTW3qZDD4m3SKyeJGEe5S1E4RMRA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9p/bnRlcmlvci1zcGFj/ZS1kZWNvcmF0ZWQt/Ym9oby1zdHlsZV8y/My0yMTUwNzcxNTc1/LmpwZz9zaXplPTYy/NiZleHQ9anBn",
-    hover: "https://imgs.search.brave.com/34I4tGA26CM5U4K_tX3NhHZb6qxXdd9gKR2gdiHk8WM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM3/MjY4MjYzNy9waG90/by92ZXJ0aWNhbC1n/cmVlbi13YWxsLWlu/LWEtbGl2aW5nLXJv/b20taW50ZXJpb3It/M2QtcmVuZGVyLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz05/eXUySUVKdF9Ra1dS/aXlZUmFtWWRISW9G/c3Jnd1FjdFJaR1NH/WmtkZmFNPQ",
+    default:
+      "https://imgs.search.brave.com/_rydaByWNpGD9nOTTW3qZDD4m3SKyeJGEe5S1E4RMRA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9p/bnRlcmlvci1zcGFj/ZS1kZWNvcmF0ZWQt/Ym9oby1zdHlsZV8y/My0yMTUwNzcxNTc1/LmpwZz9zaXplPTYy/NiZleHQ9anBn",
+    hover:
+      "https://imgs.search.brave.com/34I4tGA26CM5U4K_tX3NhHZb6qxXdd9gKR2gdiHk8WM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM3/MjY4MjYzNy9waG90/by92ZXJ0aWNhbC1n/cmVlbi13YWxsLWlu/LWEtbGl2aW5nLXJv/b20taW50ZXJpb3It/M2QtcmVuZGVyLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz05/eXUySUVKdF9Ra1dS/aXlZUmFtWWRISW9G/c3Jnd1FjdFJaR1NH/WmtkZmFNPQ",
     title: "The Art of Simplifying Interior",
     subtitle: "Decor Inspiration",
   },
@@ -89,76 +95,88 @@ function MultipleItems() {
         </h1>
       </div>
       <div className="relative overflow-hidden">
-      <Slider ref={sliderRef} {...settings}>
-    {images.map((image, index) => (
-      <div
-        key={index}
-        className="relative flex-shrink-0 px-1 sm:px-2 md:px-3"
-        onMouseEnter={() => setHoveredIndex(index)}
-        onMouseLeave={() => setHoveredIndex(null)}
-      >
-        <div
-          className={`relative w-full overflow-hidden transition-all duration-300 ease-in-out ${
-            hoveredIndex === index ? "h-auto" : "custom-height"
-          }`}
-          style={{height: "23rem"}}
-        >
-         <motion.img
-  src={image.default}
-  srcSet={`${image.default}?w=300 300w, ${image.default}?w=600 600w, ${image.default}?w=1200 1200w`} 
-  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-  alt={`Slide ${index}`}
-  className="w-full h-full object-cover rounded-lg shadow-lg"
-  loading="lazy"
-  initial={{ scale: 1, translateY: 0 }}
-  animate={{
-    scale: hoveredIndex === index ? 1.1 : 1,
-    translateY: hoveredIndex === index ? -10 : 0,
-  }}
-  transition={{ duration: 0.8 }}
-  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-/>
-          <motion.img
-            src={image.hover}
-            alt={`Slide ${index}`}
-            className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg"
-            initial={{ scale: 0, translateY: "100%" }}
-            animate={{
-              scale: hoveredIndex === index ? 1.1 : 1,
-              translateY: hoveredIndex === index ? "0%" : "100%",
-            }}
-            transition={{ duration: 0.5 }}
-            style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-          />
-          <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 lg:p-8 xl:p-10 bg-gradient-to-t from-black/50 to-transparent rounded-lg text-white max-w-full">
-            <p className="text-sm sm:text-lg md:text-xl font-semibold mb-[1.5rem] border-b-2 border-white inline-block w-max">
-              {image.subtitle}
-            </p>
-            <div className="relative overflow-hidden z-10 text-lg sm:text-xl md:text-2xl font-semibold mb-2 h-[25px] sm:h-auto">
-              <motion.h3
-                initial={{ y: 0 }}
-                animate={{ y: hoveredIndex === index ? "-100%" : "0%" }}
-                transition={{ duration: 0.3 }}
-                className="font-bold text-lg sm:text-xl md:text-2xl text-white"
+        <Slider ref={sliderRef} {...settings}>
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className="relative flex-shrink-0 px-1 sm:px-2 md:px-3"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <div
+                className={`relative w-full overflow-hidden transition-all duration-300 ease-in-out ${
+                  hoveredIndex === index ? "h-auto" : "custom-height"
+                }`}
+                style={{ height: "23rem" }}
               >
-                {image.title}
-              </motion.h3>
-              <motion.h3
-                initial={{ y: "100%" }}
-                animate={{
-                  y: hoveredIndex === index ? "0%" : "100%",
-                }}
-                transition={{ duration: 0.3 }}
-                className="absolute top-0 font-bold text-lg sm:text-xl md:text-2xl text-white"
-              >
-                {image.title}
-              </motion.h3>
+                <motion.img
+                  src={image.default}
+                  srcSet={`${image.default}?w=300 300w, ${image.default}?w=600 600w, ${image.default}?w=1200 1200w`}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  alt={`Slide ${index}`}
+                  className="w-full h-full object-cover rounded-lg shadow-lg"
+                  loading="lazy"
+                  initial={{ scale: 1, translateY: 0 }}
+                  animate={{
+                    scale: hoveredIndex === index ? 1.1 : 1,
+                    translateY: hoveredIndex === index ? -10 : 0,
+                  }}
+                  transition={{ duration: 0.8 }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+                <motion.img
+                  src={image.hover}
+                  alt={`Slide ${index}`}
+                  className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg"
+                  initial={{ scale: 0, translateY: "100%" }}
+                  animate={{
+                    scale: hoveredIndex === index ? 1.1 : 1,
+                    translateY: hoveredIndex === index ? "0%" : "100%",
+                  }}
+                  transition={{ duration: 0.5 }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 lg:p-8 xl:p-10 bg-gradient-to-t from-black/50 to-transparent rounded-lg text-white max-w-full">
+                  <p className="text-sm sm:text-lg md:text-xl font-semibold mb-[1.5rem] border-b-2 border-white inline-block w-max">
+                    {image.subtitle}
+                  </p>
+                  <div className="relative overflow-hidden z-10 text-lg sm:text-xl md:text-2xl font-semibold mb-2 h-[25px] sm:h-auto">
+                    <motion.h3
+                      initial={{ y: 0 }}
+                      animate={{ y: hoveredIndex === index ? "-100%" : "0%" }}
+                      transition={{ duration: 0.3 }}
+                      className="font-bold text-lg sm:text-xl md:text-2xl text-white"
+                    >
+                      {image.title}
+                    </motion.h3>
+                    <motion.h3
+                      initial={{ y: "100%" }}
+                      animate={{
+                        y: hoveredIndex === index ? "0%" : "100%",
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute top-0 font-bold text-lg sm:text-xl md:text-2xl text-white"
+                    >
+                      {image.title}
+                    </motion.h3>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    ))}
-  </Slider>
+          ))}
+        </Slider>
         {/* Custom Arrow */}
         <div className="flex mt-4 space-x-4">
           <ArrowButton

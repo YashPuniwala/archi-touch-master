@@ -39,19 +39,18 @@ const WorkStage = ({ stage, isActive, onClick }) => {
   );
 };
 
-
-const Story = ({project}) => {
+const Story = ({ project }) => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const exploreProjectsRef = useRef(null);
   const repeatedTextRef = useRef(null);
-
   const inspirationRef = useRef(null);
   const planningRef = useRef(null);
   const executionRef = useRef(null);
   const transformationRef = useRef(null);
 
   const [activeStage, setActiveStage] = useState("INSPIRATION");
+  const [isHovered, setIsHovered] = useState(false);
 
   const controls = useAnimation();
   const exploreProjectsControls = useAnimation();
@@ -115,36 +114,24 @@ const Story = ({project}) => {
     visible: { opacity: 1, y: 0, transition: { duration: 1 } },
   };
 
-  // const x = useMotionValue(0);
-  // const y = useMotionValue(0);
+  const textRef = useRef(null);
 
-  // const mouseXSpring = useSpring(x);
-  // const mouseYSpring = useSpring(y);
+  // Set up `useAnimation` for controls
+  const titleControls = useAnimation();
+  const textControls = useAnimation();
 
-  // const rotateX = useTransform(
-  //   mouseYSpring,
-  //   [-0.5, 0.5],
-  //   ["17.5deg", "-17.5deg"]
-  // );
+  // Observe when the elements are in view
+  const titleInView = useInView(titleRef, {
+    triggerOnce: true,
+    threshold: 0.5,
+  });
+  const textInView = useInView(textRef, { triggerOnce: true, threshold: 0.3 });
 
-  // const handleMouseMove = (e) => {
-  //   const rect = e.target.getBoundingClientRect(); // Correct method name
-  //   const width = rect.width;
-  //   const height = rect.height;
-
-  //   const mouseX = e.clientX - rect.left;
-  //   const mouseY = e.clientY - rect.top;
-
-  //   const xPct = mouseX / width - 0.5;
-  //   const yPct = mouseY / height - 0.5;
-
-  //   x.set(xPct);
-  //   y.set(yPct);
-
-  //   console.log(xPct);
-  // };
-
-  const [isHovered, setIsHovered] = useState(false);
+  // Trigger animation when in view
+  useEffect(() => {
+    if (titleInView) titleControls.start("visible");
+    if (textInView) textControls.start("visible");
+  }, [titleInView, textInView, titleControls, textControls]);
 
   // Create motion values for mouse position
   const mouseX = useMotionValue(0.5);
@@ -165,32 +152,38 @@ const Story = ({project}) => {
     mouseY.set((e.clientY - rect.top) / rect.height);
   };
 
-  const handleStageClick = useCallback((stage) => {
-    setActiveStage(stage);
-    const refs = {
-      INSPIRATION: inspirationRef,
-      PLANNING: planningRef,
-      EXECUTION: executionRef,
-      TRANSFORMATION: transformationRef,
-    };
+  const handleStageClick = useCallback(
+    (stage) => {
+      setActiveStage(stage);
+      const refs = {
+        INSPIRATION: inspirationRef,
+        PLANNING: planningRef,
+        EXECUTION: executionRef,
+        TRANSFORMATION: transformationRef,
+      };
 
-    const ref = refs[stage];
-    if (ref && ref.current) {
-      // Use scrollIntoView with smooth behavior
-      ref.current.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start',
-        inline: 'nearest'
-      });
-      
-      // Adjust scroll position to account for any fixed headers
-      setTimeout(() => {
-        const yOffset = -90; // Adjust this value based on your header height
-        const y = ref.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }, 100); // Small delay to ensure scrollIntoView has completed
-    }
-  }, [inspirationRef, planningRef, executionRef, transformationRef]);
+      const ref = refs[stage];
+      if (ref && ref.current) {
+        // Use scrollIntoView with smooth behavior
+        ref.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+          inline: "nearest",
+        });
+
+        // Adjust scroll position to account for any fixed headers
+        setTimeout(() => {
+          const yOffset = -90; // Adjust this value based on your header height
+          const y =
+            ref.current.getBoundingClientRect().top +
+            window.pageYOffset +
+            yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }, 100); // Small delay to ensure scrollIntoView has completed
+      }
+    },
+    [inspirationRef, planningRef, executionRef, transformationRef]
+  );
 
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY + 100; // Adjust for offset
@@ -215,6 +208,15 @@ const Story = ({project}) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const fadeInUpVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0, transition: { ease: "easeOut" } },
+  };
 
   return (
     <div
@@ -222,9 +224,9 @@ const Story = ({project}) => {
       ref={sectionRef}
     >
       <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-8">
-      {/* Left Side (Text Section) */}
-      <motion.div
-          className="w-full lg:w-1/3 flex flex-col justify-start"
+        {/* Left Side (Text Section) */}
+        <motion.div
+          className="w-full lg:w-1/3 flex flex-col justify-start px-0 sm:px-4"
           initial="hidden"
           ref={titleRef}
           animate={controls}
@@ -232,14 +234,16 @@ const Story = ({project}) => {
         >
           <h2 className="text-lg mb-8">WORK STAGES</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 gap-x-4">
-            {["INSPIRATION", "PLANNING", "EXECUTION", "TRANSFORMATION"].map((stage) => (
-              <WorkStage
-                key={stage}
-                stage={stage}
-                isActive={activeStage === stage}
-                onClick={handleStageClick}
-              />
-            ))}
+            {["INSPIRATION", "PLANNING", "EXECUTION", "TRANSFORMATION"].map(
+              (stage) => (
+                <WorkStage
+                  key={stage}
+                  stage={stage}
+                  isActive={activeStage === stage}
+                  onClick={handleStageClick}
+                />
+              )
+            )}
           </div>
           <div className="space-y-4 mt-12 sm:mt-14">
             {[
@@ -255,7 +259,10 @@ const Story = ({project}) => {
           </div>
           <div className="flex items-center space-x-6 mt-6">
             {["X", "F", "@"].map((icon) => (
-              <button key={icon} className="w-10 h-10 flex items-center justify-center border border-black rounded-full">
+              <button
+                key={icon}
+                className="w-10 h-10 flex items-center justify-center border border-black rounded-full"
+              >
                 <span className="text-lg">{icon}</span>
               </button>
             ))}
@@ -263,63 +270,109 @@ const Story = ({project}) => {
         </motion.div>
 
         {/* Right Side (Image Section) */}
-        <div className="w-full lg:w-2/3 mt-8 lg:mt-0 flex flex-col px-2 sm:px-4 justify-center">
-          <h2 className="text-base sm:text-lg font-medium mb-4" ref={inspirationRef}>
-            INSPIRATION BEHIND OUR INTERIOR DESIGN CONCEPT
-          </h2>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-            Transforming Visions Into Reality
-          </h1>
-          <p className="text-base sm:text-lg mb-4">
-            Our design process begins with understanding the inspiration that
-            drives each project. At Decor, we recognize that every space tells a
-            story, and it's our job to bring that story to life. In this phase,
-            our designers collaborate closely with you to capture your ideas,
-            aesthetic preferences, and lifestyle needs. Through mood boards,
-            color palettes, and material selections, we ensure that the final
-            design not only reflects your personality but also creates a
-            cohesive and inviting environment.
-          </p>
-          <motion.div
-            className="relative h-96 w-full mb-16"
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => {
-              setIsHovered(false);
-              mouseX.set(0.5);
-              mouseY.set(0.5);
-            }}
-            style={{
-              perspective: "1000px",
-              transformStyle: "preserve-3d",
-            }}
-          >
-            <motion.div
-              className="w-full h-full"
-              style={{
-                rotateX: springRotateX,
-                rotateY: springRotateY,
-              }}
+        <div className="w-full lg:w-2/3 mt-8 lg:mt-0 flex flex-col px-0 sm:px-4 justify-center">
+          <motion.div ref={inspirationRef} className="mb-0">
+            <motion.h2
+              className="text-base sm:text-base font-medium mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={titleVariants}
+              transition={{ duration: 0.5 }}
             >
-              <motion.img
-                src={project?.firstImage}
-                alt="Interior Design Example"
-                className="w-full h-full object-cover rounded-lg"
-                style={{
-                  aspectRatio: "1 / 1", // Ensure the image is square
+              INSPIRATION BEHIND OUR INTERIOR DESIGN CONCEPT
+            </motion.h2>
+
+            <motion.div initial="hidden" className="min-h-[200px] mb-8">
+              <motion.h1
+                className="text-3xl sm:text-4xl font-bold mb-4"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, threshold: 0.1 }}
+                variants={fadeInUpVariants}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                Transforming Visions Into Reality
+              </motion.h1>
+              <motion.p
+                className="text-base sm:text-lg mb-4"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, threshold: 0.1 }}
+                variants={fadeInUpVariants}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Our design process begins with understanding the inspiration
+                that drives each project. At Decor, we recognize that every
+                space tells a story, and it's our job to bring that story to
+                life. In this phase, our designers collaborate closely with you
+                to capture your ideas, aesthetic preferences, and lifestyle
+                needs. Through mood boards, color palettes, and material
+                selections, we ensure that the final design not only reflects
+                your personality but also creates a cohesive and inviting
+                environment.
+              </motion.p>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, threshold: 0.1 }}
+                variants={fadeInUpVariants}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="relative h-96 w-full mb-8"
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => {
+                  setIsHovered(false);
+                  mouseX.set(0.5);
+                  mouseY.set(0.5);
                 }}
-              />
-              <motion.div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 pointer-events-none rounded-lg" />
+                style={{
+                  perspective: "1000px",
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                <motion.div
+                  className="w-full h-full"
+                  style={{
+                    rotateX: springRotateX,
+                    rotateY: springRotateY,
+                  }}
+                >
+                  <motion.img
+                    src={project?.firstImage}
+                    alt="Interior Design Example"
+                    className="w-full h-full object-cover rounded-lg"
+                    style={{
+                      aspectRatio: "1 / 1", // Ensure the image is square
+                    }}
+                  />
+                  <motion.div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 pointer-events-none rounded-lg" />
+                </motion.div>
+              </motion.div>
             </motion.div>
           </motion.div>
 
-          <div ref={planningRef}>
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+          <motion.div ref={planningRef}>
+            <motion.h1
+              className="text-3xl sm:text-4xl font-bold mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={titleVariants}
+              transition={{ duration: 0.5 }}
+            >
               Modern Living Spaces - Interior Design Planning
-            </h1>
+            </motion.h1>
 
-            <p className="text-base sm:text-lg mb-4">
-            In the "Modern Living Spaces" project, our planning phase was
+            <motion.p
+              className="text-base sm:text-lg mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={fadeInUpVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              In the "Modern Living Spaces" project, our planning phase was
               crucial to laying the groundwork for a successful design. We began
               by thoroughly understanding the client’s vision and lifestyle
               requirements. Our team conducted comprehensive site analyses to
@@ -327,137 +380,228 @@ const Story = ({project}) => {
               enhancement. Utilizing our expertise, we developed detailed
               layouts that maximized both functionality and aesthetics, ensuring
               a seamless flow between rooms.
-            </p>
+            </motion.p>
 
-            <p className="text-base sm:text-lg mb-4">
-            Our planning process included creating mood boards and selecting
+            <motion.p
+              className="text-base sm:text-lg mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={fadeInUpVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Our planning process included creating mood boards and selecting
               materials that resonate with the client's style. We ensured that
               every element contributed to a cohesive design narrative,
               balancing modern aesthetics with the practicality of everyday
               living. The result is a thoughtfully designed space that not only
               looks stunning but also enhances the overall living experience for
               the client.
-            </p>
+            </motion.p>
 
             {/* Two images side by side */}
-            <div className="flex flex-col md:flex-row gap-4 mb-16">
-              <img
+            <div className="flex flex-col md:flex-row gap-4 mb-8">
+              <motion.img
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, threshold: 0.1 }}
+                variants={fadeInUpVariants}
+                transition={{ duration: 0.5, delay: 0.3 }}
                 src={project?.secondImage}
                 alt="Planning Example 1"
                 className="w-full md:w-1/2 h-64 object-cover rounded-lg"
               />
-              <img
+              <motion.img
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, threshold: 0.1 }}
+                variants={fadeInUpVariants}
+                transition={{ duration: 0.5, delay: 0.4 }}
                 src={project?.thirdImage}
                 alt="Planning Example 2"
                 className="w-full md:w-1/2 h-64 object-cover rounded-lg"
               />
             </div>
+          </motion.div>
 
-            {/* Execution Design Section */}
-            <div className="mb-20" ref={executionRef}>
-              <h2 className="text-base sm:text-lg font-medium mb-4" >
-                EXECUTION OF OUR INTERIOR DESIGN PROJECT
-              </h2>
-              <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-                Bringing Designs to Life
-              </h1>
-              <p className="text-base sm:text-lg mb-4">
-                The execution phase is where our carefully crafted designs take
-                shape and become a reality. At Decor, we pride ourselves on our
-                meticulous attention to detail and commitment to quality
-                throughout the entire execution process. Our team of skilled
-                craftsmen and contractors work collaboratively to ensure that
-                every aspect of the design is implemented to perfection.
-              </p>
-              <p className="text-base sm:text-lg mb-4">
-                During this phase, we manage all logistical aspects, from
-                sourcing materials to coordinating timelines. We maintain
-                constant communication with our clients, providing updates and
-                ensuring that their vision is realized accurately. By focusing
-                on precision and quality, we aim to deliver spaces that not only
-                meet but exceed expectations.
-              </p>
+          {/* Execution Design Section */}
+          <div className="mb-8" ref={executionRef}>
+            <motion.h2
+              className="text-base sm:text-base font-medium mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={titleVariants}
+              transition={{ duration: 0.5 }}
+            >
+              EXECUTION OF OUR INTERIOR DESIGN PROJECT
+            </motion.h2>
+            <motion.h1
+              className="text-3xl sm:text-4xl font-bold mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={fadeInUpVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Bringing Designs to Life
+            </motion.h1>
+            <motion.p
+              className="text-base sm:text-lg mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={fadeInUpVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              The execution phase is where our carefully crafted designs take
+              shape and become a reality. At Decor, we pride ourselves on our
+              meticulous attention to detail and commitment to quality
+              throughout the entire execution process. Our team of skilled
+              craftsmen and contractors work collaboratively to ensure that
+              every aspect of the design is implemented to perfection.
+            </motion.p>
+            <motion.p
+              className="text-base sm:text-lg mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={fadeInUpVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              During this phase, we manage all logistical aspects, from sourcing
+              materials to coordinating timelines. We maintain constant
+              communication with our clients, providing updates and ensuring
+              that their vision is realized accurately. By focusing on precision
+              and quality, we aim to deliver spaces that not only meet but
+              exceed expectations.
+            </motion.p>
+            <motion.div
+              className="relative h-96 w-full mb-4"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => {
+                setIsHovered(false);
+                mouseX.set(0.5);
+                mouseY.set(0.5);
+              }}
+              style={{
+                perspective: "1000px",
+                transformStyle: "preserve-3d",
+              }}
+            >
               <motion.div
-                className="relative h-96 w-full mb-4"
-                onMouseMove={handleMouseMove}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => {
-                  setIsHovered(false);
-                  mouseX.set(0.5);
-                  mouseY.set(0.5);
-                }}
+                className="w-full h-full"
                 style={{
-                  perspective: "1000px",
-                  transformStyle: "preserve-3d",
+                  rotateX: springRotateX,
+                  rotateY: springRotateY,
                 }}
               >
-                <motion.div
-                  className="w-full h-full"
-                  style={{
-                    rotateX: springRotateX,
-                    rotateY: springRotateY,
-                  }}
-                >
-                  <motion.img
-                    src={project?.fourthImage}
-                    alt="Interior Design Execution Example"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <motion.div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 pointer-events-none rounded-lg" />
-                </motion.div>
+                <motion.img
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, threshold: 0.1 }}
+                  variants={fadeInUpVariants}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  src={project?.fourthImage}
+                  alt="Interior Design Execution Example"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+                <motion.div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 pointer-events-none rounded-lg" />
               </motion.div>
-            </div>
+            </motion.div>
+          </div>
 
-
-            <div>
-              <h2 className="text-base sm:text-lg font-medium mb-4" ref={transformationRef}>
+          <div>
+            <motion.h2
+              className="text-base sm:text-lg font-medium mb-4"
+              ref={transformationRef}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={titleVariants}
+              transition={{ duration: 0.5 }}
+            >
               FINAL TRANSFORMATION OF YOUR INTERIOR SPACE
-              </h2>
-              <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+            </motion.h2>
+            <motion.h1
+              className="text-3xl sm:text-4xl font-bold mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={fadeInUpVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               Turning Concepts Into a Stunning Reality
-              </h1>
-              <p className="text-base sm:text-lg mb-4">
-              In the final stage of our design process, the vision that has guided us from the start is transformed into a fully realized space. At Decor, we believe that every detail matters. This is where your ideas, style preferences, and functional needs come together in perfect harmony. From the installation of custom furnishings to the final touches of decor, we ensure that the result not only matches but exceeds your expectations. The completed design reflects the journey we’ve taken together—transforming your vision into a breathtaking reality that you can truly call home.
-
-              </p>
-              <p className="text-base sm:text-lg mb-6">
-                During this phase, we manage all logistical aspects, from
-                sourcing materials to coordinating timelines. We maintain
-                constant communication with our clients, providing updates and
-                ensuring that their vision is realized accurately. By focusing
-                on precision and quality, we aim to deliver spaces that not only
-                meet but exceed expectations.
-              </p>
+            </motion.h1>
+            <motion.p
+              className="text-base sm:text-lg mb-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={fadeInUpVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              In the final stage of our design process, the vision that has
+              guided us from the start is transformed into a fully realized
+              space. At Decor, we believe that every detail matters. This is
+              where your ideas, style preferences, and functional needs come
+              together in perfect harmony. From the installation of custom
+              furnishings to the final touches of decor, we ensure that the
+              result not only matches but exceeds your expectations. The
+              completed design reflects the journey we’ve taken
+              together—transforming your vision into a breathtaking reality that
+              you can truly call home.
+            </motion.p>
+            <motion.p
+              className="text-base sm:text-lg mb-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, threshold: 0.1 }}
+              variants={fadeInUpVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              During this phase, we manage all logistical aspects, from sourcing
+              materials to coordinating timelines. We maintain constant
+              communication with our clients, providing updates and ensuring
+              that their vision is realized accurately. By focusing on precision
+              and quality, we aim to deliver spaces that not only meet but
+              exceed expectations.
+            </motion.p>
+            <motion.div
+              className="relative h-96 w-full mb-6"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => {
+                setIsHovered(false);
+                mouseX.set(0.5);
+                mouseY.set(0.5);
+              }}
+              style={{
+                perspective: "1000px",
+                transformStyle: "preserve-3d",
+              }}
+            >
               <motion.div
-                className="relative h-96 w-full mb-6"
-                onMouseMove={handleMouseMove}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => {
-                  setIsHovered(false);
-                  mouseX.set(0.5);
-                  mouseY.set(0.5);
-                }}
+                className="w-full h-full"
                 style={{
-                  perspective: "1000px",
-                  transformStyle: "preserve-3d",
+                  rotateX: springRotateX,
+                  rotateY: springRotateY,
                 }}
               >
-                <motion.div
-                  className="w-full h-full"
-                  style={{
-                    rotateX: springRotateX,
-                    rotateY: springRotateY,
-                  }}
-                >
-                  <motion.img
-                    src={project?.fifthImage}
-                    alt="Interior Design Execution Example"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <motion.div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 pointer-events-none rounded-lg" />
-                </motion.div>
+                <motion.img
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, threshold: 0.1 }}
+                  variants={fadeInUpVariants}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  src={project?.fifthImage}
+                  alt="Interior Design Execution Example"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+                <motion.div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 pointer-events-none rounded-lg" />
               </motion.div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

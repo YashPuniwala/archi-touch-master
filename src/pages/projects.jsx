@@ -99,7 +99,7 @@ const Projects = () => {
 
   const x1 = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const x2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const height = useTransform(scrollYProgress, [0, 0.9], [100, 0]);
+  const height = useTransform(scrollYProgress, [0, 0.9], [10, 0]);
 
   useEffect(() => {
     if (activeFilter === "All") {

@@ -5,7 +5,7 @@
   }
 
 /* Disable sticky on small screens */
-@media (max-width: 935px) {
+@media (max-width: 1023px) {
     .stickys {
         position: static; /* Normal flow on small screens */
     }
