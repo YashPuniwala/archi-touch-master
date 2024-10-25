@@ -5,7 +5,6 @@ const Magnetic = ({ children }) => {
     const magnetic = useRef(null);
 
     useEffect(() => {
-        console.log(children);
 
         // Adjust the duration for a longer-lasting effect
         const xTo = gsap.quickTo(magnetic.current, "x", { duration: 1.5, ease: "elastic.out(1, 0.3)" });

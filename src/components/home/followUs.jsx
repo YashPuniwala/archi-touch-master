@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { FaInstagram } from "react-icons/fa";
@@ -19,6 +19,7 @@ function FollowUs() {
   const imageRefs = useRef([]);
   const container = useRef(null);
   let xPercent = 0;
+  let animationFrame;
 
   const { scrollYProgress } = useScroll({
     target: container,
@@ -29,23 +30,31 @@ function FollowUs() {
   const x2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const height = useTransform(scrollYProgress, [0, 0.9], [150, 0]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (secondText.current) {
       gsap.set(secondText.current, {
         left: secondText.current.getBoundingClientRect().width,
       });
     }
-    requestAnimationFrame(animate);
+    startAnimation();
+    return () => cancelAnimationFrame(animationFrame); // Clean up the animation
   }, []);
 
+  const startAnimation = () => {
+    animationFrame = requestAnimationFrame(animate);
+  };
+
   const animate = () => {
-    if (xPercent > 0) {
-      xPercent = -100;
+    if (xPercent > 0) xPercent = -100;
+
+    // Ensure elements exist before calling gsap.set()
+    if (firstText.current && secondText.current) {
+      gsap.set(firstText.current, { xPercent });
+      gsap.set(secondText.current, { xPercent });
     }
-    gsap.set(firstText.current, { xPercent: xPercent });
-    gsap.set(secondText.current, { xPercent: xPercent });
-    requestAnimationFrame(animate);
+
     xPercent += 0.1;
+    animationFrame = requestAnimationFrame(animate);
   };
 
   const images = [
@@ -199,29 +208,25 @@ function FollowUs() {
             </div>
 
             {/* Follow Us Section */}
-            <div className="mt-8 md:mt-20 mb-8 md:mb-20 px-4 sm:px-8">
-          <motion.h2
-            className="text-lg sm:text-lg font-semibold mb-4 heading-line"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            Follow us on Instagram
-          </motion.h2>
-
-          <div className="flex flex-wrap -mx-2">
-            {images.map((src, index) => (
-              <div
-                key={index}
-                className="w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 px-2 mb-4"
+            <div className="mt-8 md:mt-20">
+              <motion.h2
+                className="text-lg sm:text-lg font-semibold mb-4 heading-line"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
               >
-                <motion.div
-                  className="relative group cursor-pointer"
-                  whileHover={{ scale: 1.05, rotate: 3 }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <motion.img
+                Follow us on instagram
+              </motion.h2>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+                {images.map((src, index) => (
+                  <motion.div
+                    className="relative group cursor-pointer"
+                    key={index}
+                    whileHover={{ scale: 1.05, rotate: 3 }}
+                    transition={{ duration: 0.7 }}
+                  >
+                    <motion.img
                     ref={handleRef}
                     src={src}
                     alt={`Interior ${index + 1}`}
@@ -231,24 +236,23 @@ function FollowUs() {
                     transition={{ duration: 0.7, delay: index * 0.1 }}
                     viewport={{ once: true }}
                   />
-                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-700 ease-in-out rounded"></div>
-                  <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7 }}
-                  >
-                    <MagneticForInstagram>
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out rounded"></div>
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileHover={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.7 }}
+                    >
+                       <MagneticForInstagram>
                       <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white bg-opacity-20  border border-white">
                         <FaInstagram size={20} color="white" />
                       </div>
                     </MagneticForInstagram>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
           </div>
         </div>
       </div>
@@ -260,148 +264,3 @@ function FollowUs() {
 }
 
 export default FollowUs;
-
-// import React, { useRef, useState } from "react";
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-// import { motion } from "framer-motion";
-
-// const images = [
-//   {
-//     default:
-//       "https://images.unsplash.com/photo-1633174102592-33d2456834f5?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//     hover:
-//       "https://plus.unsplash.com/premium_photo-1661963540233-94097ba21f27?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     default:
-//       "https://plus.unsplash.com/premium_photo-1661963540233-94097ba21f27?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//     hover:
-//       "https://plus.unsplash.com/premium_photo-1661963540233-94097ba21f27?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   // Add more images here...
-// ];
-
-// function MultipleItems() {
-//   const sliderRef = useRef(null);
-//   const [hoveredIndex, setHoveredIndex] = useState(null);
-
-//   const settings = {
-//     infinite: true,
-//     speed: 500,
-//     slidesToShow: 2.12,
-//     slidesToScroll: 1,
-//     arrows: false,
-//     centerMode: true,
-//     centerPadding: "4.5%",
-//     responsive: [
-//       {
-//         breakpoint: 1440,
-//         settings: {
-//           slidesToShow: 2.12,
-//           slidesToScroll: 1,
-//           centerPadding: "4.5%",
-//         },
-//       },
-//       {
-//         breakpoint: 1024,
-//         settings: {
-//           slidesToShow: 2,
-//           slidesToScroll: 1,
-//           centerPadding: "10%",
-//         },
-//       },
-//       {
-//         breakpoint: 768,
-//         settings: {
-//           slidesToShow: 1,
-//           slidesToScroll: 1,
-//           centerPadding: "15%",
-//         },
-//       },
-//       {
-//         breakpoint: 480,
-//         settings: {
-//           slidesToShow: 1,
-//           slidesToScroll: 1,
-//           centerPadding: "5%",
-//         },
-//       },
-//     ],
-//   };
-
-//   return (
-//     <div className="slider-container mx-auto p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 bg-white">
-//       <div className="mb-6 text-left px-4">
-//         <p className="text-sm sm:text-base md:text-lg text-gray-500 font-semibold mb-2">
-//           Transform Your Space: Expert Tips & Ideas
-//         </p>
-//         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[2.8rem] text-gray-800 font-bold leading-tight">
-//           Transform Your Home with Expert Advice:
-//           <br className="hidden md:block" />
-//           Discover Innovative Ideas and Practical Tips
-//           <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-medium"></span>
-//         </h1>
-//       </div>
-//       <div className="relative overflow-hidden">
-//         <Slider ref={sliderRef} {...settings}>
-//           {images.map((image, index) => (
-//             <div
-//               key={index}
-//               className="relative flex-shrink-0 px-1 sm:px-2 md:px-3"
-//               onMouseEnter={() => setHoveredIndex(index)}
-//               onMouseLeave={() => setHoveredIndex(null)}
-//             >
-//               <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-[28rem] overflow-hidden">
-//                 <motion.img
-//                   src={image.default}
-//                   alt={`Slide ${index}`}
-//                   className="w-full h-full object-cover rounded-lg shadow-lg"
-//                   // initial={{ scale: 1, translateY: 0 }}
-//                   initial={{ scale: 1, transform: "translateZ(0px)", translateY: 0 }}
-//                   animate={{
-//                     scale: hoveredIndex === index ? 1.1 : 1,
-//                     transform: hoveredIndex === index ? "translateZ(50px)" : "translateZ(0px)", translateY: hoveredIndex === index ? -10 : 0,
-
-//                   }} // Zoom-in effect on hover
-//                   transition={{ duration: 0.8 }}
-//                 />
-//                 <motion.img
-//                   src={image.hover}
-//                   alt={`Slide ${index}`}
-//                   className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg"
-//                   // initial={{ scale: 1, translateY: 100 }}
-//                   initial={{ scale: 1, transform: "translateY(100%) translateZ(-50px)", translateY: 100 }}
-//                   animate={{
-//                     scale: hoveredIndex === index ? 1.1 : 1,
-//                     transform: hoveredIndex === index ? "translateY(0%) translateZ(0px)" : "translateY(100%) translateZ(-50px)",
-//                     translateY: hoveredIndex === index ? 0 : 100,
-//                   }} // Zoom-out effect on hover
-//                   transition={{ duration: 0.8 }}
-//                 />
-//               </div>
-//             </div>
-//           ))}
-//         </Slider>
-//         {/* Custom Arrow */}
-//         <div className="flex justify-center mt-4 space-x-4">
-//           <button
-//             className="bg-white text-gray-700 border border-gray-300 p-2 sm:p-3 md:p-4 rounded-full shadow-md hover:bg-gray-100 flex items-center justify-center"
-//             onClick={() => sliderRef.current.slickPrev()}
-//           >
-//             <span className="text-lg md:text-xl lg:text-2xl">&larr;</span>
-//           </button>
-//           <button
-//             className="bg-white text-gray-700 border border-gray-300 p-2 sm:p-3 md:p-4 rounded-full shadow-md hover:bg-gray-100 flex items-center justify-center"
-//             onClick={() => sliderRef.current.slickNext()}
-//           >
-//             <span className="text-lg md:text-xl lg:text-2xl">&rarr;</span>
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default MultipleItems;
