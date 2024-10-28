@@ -115,29 +115,35 @@ const SingleProjectDetail = () => {
                 </div>
 
                 {/* Bottom: Share Section */}
-                <div className="flex justify-between items-center mt-4 sm:mt-12">
-                  <span className="font-semibold text-base">SHARE ON:</span>
-                  <div className="flex space-x-4">
-                    <motion.button
-                      className="p-2 bg-black rounded-full"
-                      initial={{ opacity: 0, y: 50 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.1 }}
-                      viewport={{ once: true }}
-                    >
-                      <Facebook size={25} color="white" />
-                    </motion.button>
-                    <motion.button
-                      className="p-2 bg-black rounded-full"
-                      initial={{ opacity: 0, y: 50 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.2 }}
-                      viewport={{ once: true }}
-                    >
-                      <Twitter size={25} color="white" />
-                    </motion.button>
-                  </div>
-                </div>
+                <motion.div
+  className="flex justify-between items-center mt-4 sm:mt-12"
+  initial={{ opacity: 0, scale: 1.2 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.8, ease: "easeInOut" }}
+  viewport={{ once: true }}
+>
+  <span className="font-semibold text-base">SHARE ON:</span>
+  <div className="flex space-x-4">
+    <motion.button
+      className="p-2 bg-black rounded-full"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+      viewport={{ once: true }}
+    >
+      <Facebook size={25} color="white" />
+    </motion.button>
+    <motion.button
+      className="p-2 bg-black rounded-full"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+      viewport={{ once: true }}
+    >
+      <Twitter size={25} color="white" />
+    </motion.button>
+  </div>
+</motion.div>
               </div>
 
               {/* Side Image and "You May Also Like" section */}

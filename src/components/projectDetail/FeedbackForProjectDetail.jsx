@@ -97,7 +97,7 @@ const Testimonial = () => {
             >
               {/* Testimonial Text */}
               <motion.h4
-                className="text-[0.8rem] sm:text-[1rem] md:text-[1.2rem] font-semibold mb-6"
+                className="text-[0.7rem] sm:text-[1rem] md:text-[1.2rem] font-semibold mb-6"
                 // initial={{ y: 50, opacity: 0 }}
                 // animate={{ y: 0, opacity: 1 }}
                 // transition={{ duration: 0.8 }}
@@ -105,7 +105,7 @@ const Testimonial = () => {
                 WHAT THEY SAY ABOUT US
               </motion.h4>
               <p
-                className="text-[0.8rem] sm:text-[1rem] md:text-xl lg:text-3xl mb-8 italic"
+                className="text-[1rem] sm:text-[1rem] md:text-xl lg:text-3xl mb-8 italic"
                 style={{ lineHeight: "1.8" }}
               >
                 {testimonials[currentIndex].text}
@@ -158,13 +158,13 @@ const ProjectCard = ({ image, category, title, designer }) => {
 
   return (
     <motion.div
-      className="border border-gray-300 rounded-lg overflow-hidden flex flex-col md:flex-row p-3 md:p-4 gap-4 md:gap-8 hover:cursor-pointer relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={cardVariants}
+    className="border border-gray-300 rounded-lg overflow-hidden flex flex-col md:flex-row p-3 md:p-4 gap-4 md:gap-8 hover:cursor-pointer relative"
+    onMouseEnter={() => setIsHovered(true)}
+    onMouseLeave={() => setIsHovered(false)}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-5px", threshold: 1 }}  // Adjusted margin and threshold
+    variants={cardVariants}
     >
       <motion.div
         className="absolute inset-0 bg-gray-200"
@@ -181,7 +181,7 @@ const ProjectCard = ({ image, category, title, designer }) => {
           animate={{ scale: isHovered ? 1.2 : 1 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         />
-                  <div className="absolute inset-0 bg-black opacity-30 rounded-xl"></div>
+        <div className="absolute inset-0 bg-black opacity-20 rounded-xl"></div>
       </div>
       <div className="w-full md:w-1/2 flex flex-col justify-evenly relative z-10 space-y-4 md:space-y-0">
         <div>
@@ -213,10 +213,13 @@ const ProjectCard = ({ image, category, title, designer }) => {
               PROJECT DETAIL
               <span className="absolute left-0 top-4 md:top-8 w-full h-0.5 bg-gray-400"></span>
               <motion.span
-                className="absolute left-0 top-6 md:top-8 w-full h-0.5 bg-gray-700"
+                className="absolute left-0 top-4 md:top-8 w-full h-0.5 bg-gray-700"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: isHovered ? 1 : 0 }}
-                transition={{ duration: 0.6, ease: "easeInOut",       delay: isHovered ? 0.4 : 0, // Apply delay only when hovering
+                transition={{
+                  duration: 0.6,
+                  ease: "easeInOut",
+                  delay: isHovered ? 0.4 : 0, // Apply delay only when hovering
                 }}
                 style={{ originX: isHovered ? 0 : 1 }}
               />

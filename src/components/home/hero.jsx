@@ -162,7 +162,7 @@ const Hero = memo(() => {
           initial={{ clipPath: "inset(0 0 100% 0)" }}
           animate={{ clipPath: "inset(0 0 0 0)" }}
           exit={{ clipPath: "inset(100% 0 0 0)" }}
-          transition={{ duration: 0.7, type: "tween", ease: "easeInOut" }}
+          // transition={{ duration: 0.7, type: "tween", ease: "easeInOut" }}
         >
           <img
             src={images[currentImageIndex].image}

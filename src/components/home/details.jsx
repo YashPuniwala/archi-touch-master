@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import Cursor from "../../utils/cursor";
 import useWindowSize from "../../utils/useWindowSize";
+import { Link } from "react-router-dom";
+import { singleProjectsData } from "../../data/singleProjectsData";
 
 const ImageTextCard = ({ title, author, year, imgSrc }) => {
   const imgRef = useRef(null);
@@ -155,11 +157,11 @@ const Details = () => {
 
   return (
     <motion.div
-    ref={fadeInRef} // Ref to trigger fade-in when in view
-    initial={{ opacity: 0 }} // Start with opacity 0
-    animate={fadeInControls} // Animate opacity when in view
-    className="min-h-screen bg-black text-white p-4 md:p-8"
-  >  
+      ref={fadeInRef} // Ref to trigger fade-in when in view
+      initial={{ opacity: 0 }} // Start with opacity 0
+      animate={fadeInControls} // Animate opacity when in view
+      className="min-h-screen bg-black text-white p-4 md:p-8"
+    >
       {/* <motion.div className="min-h-screen bg-black text-white p-4 md:p-8"> */}
       <motion.h3
         ref={headingRef}
@@ -184,27 +186,23 @@ const Details = () => {
         ref={refGroup1}
         className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8"
       >
-        <motion.div
-          className="lg:col-span-2"
-          custom={0}
-          initial={{ y: 100 }}
-          animate={controlsGroup1}
-        >
-          <ImageTextCard
-            title="Luxury Living"
-            author="Ryan Andersen, Decor Group"
-            year="2024"
-            imgSrc="https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          />
-        </motion.div>
-        <motion.div custom={1} initial={{ y: 100 }} animate={controlsGroup1}>
-          <ImageTextCard
-            title="Glamour Groove"
-            author="Artemis J, Decor Group"
-            year="2024"
-            imgSrc="https://plus.unsplash.com/premium_photo-1684338795288-097525d127f0?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          />
-        </motion.div>
+        {singleProjectsData.slice(0, 2).map((project, index) => (
+          <motion.div
+            className={index === 0 ? "lg:col-span-2" : ""}
+            custom={index}
+            initial={{ y: 100 }}
+            animate={controlsGroup1}
+          >
+            <Link key={project.id} to={`/project/detail/${project.id}`}>
+              <ImageTextCard
+                title={project.title}
+                author={project.author}
+                year={project.year}
+                imgSrc={project.image}
+              />
+            </Link>
+          </motion.div>
+        ))}
       </div>
 
       {/* Second row: Smaller image on the left, large image on the right */}
@@ -212,27 +210,24 @@ const Details = () => {
         ref={refGroup2}
         className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8"
       >
-        <motion.div custom={0} initial={{ y: 100 }} animate={controlsGroup2}>
-          <ImageTextCard
-            title="Glamour Groove"
-            author="Artemis J, Decor Group"
-            year="2024"
-            imgSrc="https://plus.unsplash.com/premium_photo-1673014200221-524696a1edd9?q=80&w=1531&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          />
-        </motion.div>
-        <motion.div
-          className="lg:col-span-2"
-          custom={1}
-          initial={{ y: 100 }}
-          animate={controlsGroup2}
-        >
-          <ImageTextCard
-            title="Luxury Living"
-            author="Ryan Andersen, Decor Group"
-            year="2024"
-            imgSrc="https://images.unsplash.com/photo-1600494448850-6013c64ba722?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          />
-        </motion.div>
+        {singleProjectsData.slice(0, 2).map((project, index) => (
+          <motion.div
+            key={project.id}
+            className={index === 0 ? "lg:col-span-1" : "lg:col-span-2"}
+            custom={index}
+            initial={{ y: 100 }}
+            animate={controlsGroup2}
+          >
+            <Link to={`/project/detail/${project.id}`}>
+            <ImageTextCard
+              title={project.title}
+              author={project.author}
+              year={project.year}
+              imgSrc={project.firstImage} // Ensure you're using imgSrc here
+            />
+            </Link>
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );

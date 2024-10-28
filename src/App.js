@@ -58,7 +58,7 @@ function AnimatedRoutes() {
         // animate={{ x: 0, opacity: 1 }}      // Slide in from the right
         // exit={{ x: "-100%", opacity: 0 }}    // Slide out to the left
         // transition={{ ease: "easeInOut", duration: 0.5 }}  // Adjust the transition duration
-        className="route-container"
+        // className="route-container"
       >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
