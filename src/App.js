@@ -3,6 +3,7 @@ import Navbar from "./components/home/navbar";
 import NavbarWithBackground from "./pages/navbarWithBackground";
 import AboutUs from "./pages/aboutUs";
 import Projects from "./pages/projects"
+import ContactUs from "./pages/contactUs"
 import SingleProjectDetail from "./pages/singleProjectDetail"
 import Footer from "./components/footer"
 import {
@@ -64,6 +65,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/project/detail/:id" element={<SingleProjectDetail />} />
         </Routes>
       </motion.div>

@@ -77,7 +77,7 @@ function FollowUs() {
       <div ref={container} className="relative mb-[3rem]">
         {/* Header Section with Running Text */}
         <div
-         className="relative w-[95%] mx-auto bg-cover bg-center rounded-lg 
+          className="relative w-[97%] mx-auto bg-cover bg-center rounded-lg 
            h-[64vh] sm:h-[60vh] md:h-[90vh] lg:h-[100vh]"
           style={{
             backgroundImage:
@@ -137,7 +137,7 @@ function FollowUs() {
     <Footer /> */}
 
         {/* Consultation Section */}
-        <div className="relative w-[89%] mx-auto bg-gray-50 py-10 px-4 rounded-lg border border-gray-300 -mt-16 z-10 sm:-mt-24 lg:-mt-16">
+        <div className="relative w-[93%] mx-auto bg-gray-50 pt-10 pb-6 px-4 rounded-lg border border-gray-300 -mt-16 z-10 sm:-mt-24 lg:-mt-16">
           <div className="bg-gray-50 p-0 md:p-5">
             <div className="flex flex-col md:flex-row gap-10">
               <div className="md:w-[64%]">
@@ -208,7 +208,7 @@ function FollowUs() {
             </div>
 
             {/* Follow Us Section */}
-            <div className="mt-8 md:mt-20">
+            <div className="mt-8 md:mt-20 mb-0 px-0 sm:px-0">
               <motion.h2
                 className="text-lg sm:text-lg font-semibold mb-4 heading-line"
                 initial={{ opacity: 0, y: 50 }}
@@ -216,40 +216,45 @@ function FollowUs() {
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                Follow us on instagram
+                Follow us on Instagram
               </motion.h2>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+
+              <div className="flex flex-wrap -mx-2">
                 {images.map((src, index) => (
-                  <motion.div
-                    className="relative group cursor-pointer"
+                  <div
                     key={index}
-                    whileHover={{ scale: 1.05, rotate: 3 }}
-                    transition={{ duration: 0.7 }}
+                    className="w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 px-2 mb-4"
                   >
-                    <motion.img
-                    ref={handleRef}
-                    src={src}
-                    alt={`Interior ${index + 1}`}
-                    className="w-full h-[150px] sm:h-[200px] object-cover rounded transition-transform duration-700 ease-in-out"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.7, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  />
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out rounded"></div>
                     <motion.div
-                      className="absolute inset-0 flex items-center justify-center"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileHover={{ opacity: 1, y: 0 }}
+                      className="relative group cursor-pointer"
+                      whileHover={{ scale: 1.05, rotate: 3 }}
                       transition={{ duration: 0.7 }}
                     >
-                       <MagneticForInstagram>
-                      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white bg-opacity-20  border border-white">
-                        <FaInstagram size={20} color="white" />
-                      </div>
-                    </MagneticForInstagram>
+                      <motion.img
+                        ref={handleRef}
+                        src={src}
+                        alt={`Interior ${index + 1}`}
+                        className="w-full h-[150px] sm:h-[200px] object-cover rounded transition-transform duration-700 ease-in-out"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.7, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                      />
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-700 ease-in-out rounded"></div>
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileHover={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7 }}
+                      >
+                        <MagneticForInstagram>
+                          <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white bg-opacity-20  border border-white">
+                            <FaInstagram size={20} color="white" />
+                          </div>
+                        </MagneticForInstagram>
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>

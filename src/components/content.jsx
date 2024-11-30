@@ -1,4 +1,4 @@
-import Magnetic from '../utils/magnetic';
+import Magnetic from "../utils/magnetic";
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 
@@ -31,6 +31,7 @@ const BoxItem = ({ text, widths, heights }) => {
             ? "bg-white text-black border-black"
             : "bg-transparent text-white border-white"
         } ${widths} ${heights}`}
+        
       >
         {/* First Text Animation */}
         <button
@@ -149,17 +150,17 @@ const Content = () => {
 
         <div className="flex flex-wrap justify-center gap-x-[1rem] gap-y-3 mt-8 sm:items-center sm:gap-y-3">
           <BoxItem
-            text="EXPERTS"
+            text="About Us"
             widths="w-24 sm:w-28 md:w-28 lg:w-28"
             heights="h-8 sm:h-8 md:h-10 lg:h-10"
           />
           <BoxItem
-            text="PRICING"
+            text="Projects"
             widths="w-24 sm:w-28 md:w-28 lg:w-28"
             heights="h-8 sm:h-8 md:h-10 lg:h-10"
           />
           <BoxItem
-            text="BEST SERVICE"
+            text="Contact Us"
             widths="w-32 sm:w-32 md:w-36 lg:w-36"
             heights="h-8 sm:h-8 md:h-10 lg:h-10"
           />
@@ -184,35 +185,35 @@ const Content = () => {
         <div className="flex justify-center items-center">
           {/* <span className="text-white text-xl sm:text-2xl">✖</span> */}
           <div className="flex  items-center space-y-0 sm:space-y-0 sm:flex-row space-x-4 sm:space-x-4">
-  <Magnetic>
-    <a
-      href="#"
-      className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
-    >
-      INSTAGRAM
-    </a>
-  </Magnetic>
-  <Magnetic>
-    <a
-      href="#"
-      className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
-    >
-      FACEBOOK
-    </a>
-  </Magnetic>
-  <Magnetic>
-    <a
-      href="#"
-      className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
-    >
-      TWITTER
-    </a>
-  </Magnetic>
-</div>
+            <Magnetic>
+              <a
+                href="#"
+                className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
+              >
+                INSTAGRAM
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="#"
+                className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
+              >
+                FACEBOOK
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="#"
+                className="border border-white rounded-full px-2 py-2 text-sm hover:bg-white hover:text-black transition"
+              >
+                TWITTER
+              </a>
+            </Magnetic>
+          </div>
         </div>
       </div>
     </footer>
   );
 };
 
-export default Content; 
+export default Content;

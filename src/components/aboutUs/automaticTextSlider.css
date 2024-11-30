@@ -99,30 +99,34 @@
 }
 
 /* Media query for small screens */
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   .hover-text {
     -webkit-text-stroke: 0; /* Remove stroke entirely */
     -webkit-background-clip: none; /* Ensure background clip is disabled if needed */
     background-clip: none; /* Standard background clip */
     color: white;
-    text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black;
+    text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black,
+      -1px -1px 0 black;
     background-image: linear-gradient(to right, #daa520 50%, white 50%);
     background-size: 200% 100%;
     background-position: 100% 0;
     background-clip: text;
     -webkit-background-clip: text;
-    transition: background-position 0.7s cubic-bezier(0.4, 0, 0.1, 1), color 0.5s ease, text-shadow 0.5s ease;
+    transition: background-position 0.7s cubic-bezier(0.4, 0, 0.1, 1),
+      color 0.5s ease, text-shadow 0.5s ease;
   }
 
   .hover-text:hover {
     color: #daa520;
-    text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black;
+    text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black,
+      -1px -1px 0 black;
     background-image: linear-gradient(to right, #daa520 50%, white 50%);
     background-position: 0 0;
     background-size: 200% 100%;
     background-clip: text;
     -webkit-background-clip: text;
-    transition: background-position 0.7s cubic-bezier(0.4, 0, 0.1, 1), color 0.5s ease, text-shadow 0.5s ease;
+    transition: background-position 0.7s cubic-bezier(0.4, 0, 0.1, 1),
+      color 0.5s ease, text-shadow 0.5s ease;
   }
 
   .plus-signs {

@@ -35,22 +35,21 @@ const NavbarWithBackground = () => {
   const handleNavigation = (path) => {
     // Close the menu and reset selected link state
     setSelectedLink({ isActive: false, index: 0 });
-    
+
     // Navigate to the new path immediately
     navigate(path);
-  
+
     // Start the black screen animation after the page changes
     setTimeout(() => {
       setIsMenuOpen(false); // Close the menu
     }, 600); // Adjust the timing as needed
   };
 
-
   const links = [
     { title: "Home", path: "/" },
     { title: "About Us", path: "/aboutUs" },
     { title: "Projects", path: "/projects" },
-    { title: "Contact Us", path: "/contact" },
+    { title: "Contact Us", path: "/contactUs" },
   ];
 
   const linkVariants = {
@@ -61,25 +60,25 @@ const NavbarWithBackground = () => {
   return (
     <div>
       <AnimatePresence mode="wait">
+        <motion.div
+          className="fixed top-0 left-0 w-full bg-custom-white text-black shadow-md z-50"
+          initial={{ height: 0 }}
+          animate={{ height: "65px" }}
+          exit={{ height: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <motion.div
-            className="fixed top-0 left-0 w-full bg-navbar-second-color-white text-black shadow-md z-50"
-            initial={{ height: 0 }}
-            animate={{ height: "65px" }}
-            exit={{ height: 0 }}
+            className="flex justify-between items-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.div
-              className="flex justify-between items-center p-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <h1 className="text-2xl font-bold">Tyler Karu</h1>
-              <div className="hidden lg:flex space-x-4 gap-7">
-                {links.map((link, index) => (
-                  <Magnetic>
-                    <div>
+            <h1 className="text-2xl font-bold">ARCHI-TOUCH</h1>
+            <div className="hidden lg:flex space-x-4 gap-7">
+              {links.map((link, index) => (
+                <Magnetic>
+                  <div>
                     <Link
                       key={index}
                       to={link.path}
@@ -87,39 +86,39 @@ const NavbarWithBackground = () => {
                     >
                       {link.title}
                     </Link>
-                    </div>
-                  </Magnetic>
-                ))}
-              </div>
-              <div className="lg:hidden flex items-center">
-                <button
-                  onClick={toggleMenu}
-                  className="text-lg font-medium focus:outline-none"
+                  </div>
+                </Magnetic>
+              ))}
+            </div>
+            <div className="lg:hidden flex items-center">
+              <button
+                onClick={toggleMenu}
+                className="text-lg font-medium focus:outline-none"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h16m-7 6h7"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                </svg>
+              </button>
+            </div>
 
-              <div className="hidden lg:flex">
-                <h2 className="text-xl font-semibold">Menu</h2>
-              </div>
-            </motion.div>
+            <div className="hidden lg:flex">
+              <h2 className="text-xl font-semibold">Menu</h2>
+            </div>
           </motion.div>
-          </AnimatePresence>
-      
+        </motion.div>
+      </AnimatePresence>
+
       <motion.div
         initial={{ height: "0%" }}
         animate={{ height: isMenuOpen ? "100vh" : "0%" }}

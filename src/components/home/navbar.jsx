@@ -53,7 +53,7 @@ const NavbarPage = () => {
     { title: "Home", path: "/" },
     { title: "About Us", path: "/aboutUs" },
     { title: "Projects", path: "/projects" },
-    { title: "Contact Us", path: "/contact" },
+    { title: "Contact Us", path: "/contactUs" },
   ];
 
   const linkVariants = {
@@ -68,12 +68,12 @@ const NavbarPage = () => {
       <div
         className={`absolute top-0 w-full z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-navbar-second-color-white text-black shadow-md"
+            ? "bg-white text-black"
             : "bg-transparent text-custom-white"
         }`}
       >
         <div className="flex justify-between items-center p-4">
-          <h1 className="text-2xl font-bold">Tyler Karu</h1>
+          <h1 className="text-2xl font-bold">ARCHI-TOUCH</h1>
           <div className="hidden lg:flex space-x-4 gap-7">
             {links.map((link, index) => (
               <Magnetic key={index}>
@@ -117,12 +117,13 @@ const NavbarPage = () => {
 
       {location.pathname === "/aboutUs" ||
       location.pathname === "/projects" ||
+      location.pathname === "/contactUs" ||
       location.pathname === "" 
       ? ( // Add isDetailPage condition here
         <div>
           <AnimatePresence>
             <motion.div
-              className="fixed top-0 left-0 w-full bg-navbar-second-color-white text-black shadow-md z-50"
+              className="fixed top-0 left-0 w-full bg-white text-black z-50"
               initial={{ height: 0 }}
               animate={{ height: "65px" }}
               exit={{ height: 0 }}
@@ -135,7 +136,7 @@ const NavbarPage = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <h1 className="text-2xl font-bold">Tyler Karu</h1>
+                <h1 className="text-2xl font-bold">ARCHI-TOUCH</h1>
                 <div className="hidden lg:flex space-x-4 gap-7">
                   {links.map((link, index) => (
                     <Magnetic key={index}>
@@ -183,7 +184,7 @@ const NavbarPage = () => {
           <AnimatePresence>
             {isScrolled && (
               <motion.div
-                className="fixed top-0 left-0 w-full bg-navbar-second-color-white text-black shadow-md z-50"
+                className="fixed top-0 left-0 w-full bg-white text-black shadow-md z-50"
                 initial={{ height: 0 }}
                 animate={{ height: "65px" }}
                 exit={{ height: 0 }}
@@ -196,7 +197,7 @@ const NavbarPage = () => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h1 className="text-2xl font-bold">Tyler Karu</h1>
+                  <h1 className="text-2xl font-bold">ARCHI-TOUCH</h1>
                   <div className="hidden lg:flex space-x-4 gap-7">
                     {links.map((link, index) => (
                       <Magnetic key={index}>

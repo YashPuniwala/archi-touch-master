@@ -185,7 +185,7 @@ const ProjectCard = ({ image, category, title, designer }) => {
       </div>
       <div className="w-full md:w-1/2 flex flex-col justify-evenly relative z-10 space-y-4 md:space-y-0">
         <div>
-          <div className="relative overflow-hidden h-[2rem] sm:h-[2em] md:h-[2.5rem]">
+        <div className="relative overflow-hidden h-auto sm:h-[2em] md:h-auto lg:h-[2.5rem]">
             <motion.h3
               initial={{ y: 0 }}
               animate={{ y: isHovered ? "-100%" : "0%" }}
@@ -289,7 +289,7 @@ function FeedbackForProjectDetail() {
       <div ref={container} className="relative mb-[3rem]">
         <div
           className="relative w-[97%] sm:w-[94%] md:w-[97%] lg:w-[92%] mx-auto bg-cover bg-center rounded-lg 
-           h-[72vh] sm:h-[80vh] md:h-[90vh] lg:h-[100vh]"
+           h-[60vh] sm:h-[80vh] md:h-[90vh] lg:h-[100vh]"
         >
           <video
             className="absolute inset-0 w-full h-full object-cover rounded-xl"

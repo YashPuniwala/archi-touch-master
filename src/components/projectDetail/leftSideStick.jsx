@@ -220,7 +220,7 @@ const Story = ({ project }) => {
 
   return (
     <div
-      className="container max-w-7xl mx-auto px-4 py-8 lg:py-16 lg:px-16 flex items-center justify-center"
+      className="container max-w-7xl mx-auto px-4 pt-8 lg:pt-16 lg:px-16 flex items-center justify-center"
       ref={sectionRef}
     >
       <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-8">

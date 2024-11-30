@@ -1,8 +1,8 @@
 export const singleProjectsData = [
   {
     id: 1,
-    date: "JANUARY 15, 2022",
     title: "Urban City Life",
+    date: "JANUARY 15, 2022",
     author:"Ryan Andersen, Decor Group",
     description:
       "Explore our portfolio of Scandinavian-inspired designs that blend warmth, tranquility, and Art Deco influences. Our creations showcase our commitment to excellence, creativity, and meticulous attention to detail.",
