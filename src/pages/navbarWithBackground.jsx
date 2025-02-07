@@ -74,7 +74,7 @@ const NavbarWithBackground = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <h1 className="text-2xl font-bold">ARCHI-TOUCH</h1>
+            <h1 className="text-2xl font-bold">INTERIOR</h1>
             <div className="hidden lg:flex space-x-4 gap-7">
               {links.map((link, index) => (
                 <Magnetic>

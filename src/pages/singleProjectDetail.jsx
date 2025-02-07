@@ -138,7 +138,7 @@ const SingleProjectDetail = () => {
                 <div>
                   <div className="flex items-center mb-4">
                     <span className="text-base font-semibold text-gray-500">
-                      ARCHI TOUCH
+                      INTERIOR
                     </span>
                     <span className="mx-6 text-gray-300">———</span>
                     <span className="text-base text-gray-500">

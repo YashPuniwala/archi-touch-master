@@ -178,7 +178,7 @@ const Content = () => {
       <div className="w-full flex justify-between items-center mt-2 sm:mt-8 mb-4 sm:mb-4 flex-col sm:flex-row">
         {/* Footer Bottom Text */}
         <div className="text-base text-gray-400 text-center sm:text-right mb-4 sm:mb-0">
-          <p>&copy; Archi-Touch. All Rights Reserved. Licensing</p>
+          <p>&copy; Interior-Touch. All Rights Reserved. Licensing</p>
         </div>
 
         {/* Bottom Left Icon */}

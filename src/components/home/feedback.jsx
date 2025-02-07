@@ -4,19 +4,19 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 const Feedback = () => {
   const feedbacks = [
     {
-      quote: "Working with Archi-touch was an absolute pleasure. Archi-touch turned our house into a dream home. Exceptional work!",
+      quote: "Working with Interior was an absolute pleasure. Interior turned our house into a dream home. Exceptional work!",
       name: "SARAH MAIL",
       role: "CUSTOMER",
       image: "https://img.freepik.com/free-photo/business-concept-portrait-confident-young-businesswoman-keeping-arms-crossed-looking-camera-w_1258-104422.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1723248000&semt=ais_hybrid",
     },
     {
-      quote: "Working with Archi-touch was an absolute pleasure. Archi-touch turned our house into a dream home. Exceptional work!",
+      quote: "Working with Interior was an absolute pleasure. Interior turned our house into a dream home. Exceptional work!",
       name: "SARAH MAIL",
       role: "CUSTOMER",
       image: "https://t3.ftcdn.net/jpg/03/21/67/72/360_F_321677228_PybtVjGqx90y34jQzbyeALHhOncLC8DR.jpg",
     },
     {
-      quote: "Working with Archi-touch was an absolute pleasure. Archi-touch turned our house into a dream home. Exceptional work!",
+      quote: "Working with Interior was an absolute pleasure. Interior turned our house into a dream home. Exceptional work!",
       name: "SARAH MAIL",
       role: "CUSTOMER",
       image: "https://media.istockphoto.com/id/1950191674/photo/laughing-businesswoman-texting-over-smart-phone-and-looking-away-on-isolated-white-background.webp?b=1&s=170667a&w=0&k=20&c=cV7vg3ovhgCrsCdiyN1bVkXHPk_0eAcstXTZig17pNA=",
